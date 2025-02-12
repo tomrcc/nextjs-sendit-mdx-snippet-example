@@ -24,7 +24,7 @@ collections_config:
       - visual
     schemas:
       default:
-        path: schemas/post.md
+        path: schemas/post.mdx
 _editables:
   content:
     embed: true

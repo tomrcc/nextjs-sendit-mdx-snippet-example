@@ -95,7 +95,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-	const page = await filer.getItem(`${params.slug}.md`, { folder: 'posts' });
+	const page = await filer.getItem(`${params.slug}.mdx`, { folder: 'posts' });
 	const paginatedPosts = await filer.getPaginatedItems('posts', { sortKey: 'date', pagination: {size: 3, page: 1} });
 
 	return {
