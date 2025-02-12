@@ -83,9 +83,26 @@ _inputs:
     comment: >-
       When selected this removes the page from your sitemap and adds the noindex
       robots meta tag
+
 _structures:
   features:
     values:
       - value:
           item: 
           isActive: 
+
+_snippets_imports:
+  mdx: true
+
+_snippets:
+  mdx_iframe:
+    template: mdx_component
+    inline: false
+    preview:
+      text: Iframe
+    definitions:
+      component_name: Iframe
+      named_args:
+        - source_key: src
+          editor_key: src
+          type: string
