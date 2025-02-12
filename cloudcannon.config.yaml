@@ -1,6 +1,4 @@
 paths:
-  collections: content
-  data: data
   static: public
   uploads: public/uploads
 collections_config:
@@ -11,7 +9,6 @@ collections_config:
   pages:
     path: content/pages
     url: '/[slug]'
-    output: true
     icon: wysiwyg
     _enabled_editors:
       - visual
@@ -21,7 +18,6 @@ collections_config:
         path: schemas/page.md
   blog:
     path: content/posts
-    output: true
     url: '/blog/[slug]'
     _enabled_editors:
       - content
@@ -34,7 +30,7 @@ _editables:
     embed: true
 _inputs:
   date:
-    instance_value: now
+    instance_value: NOW
   title_suffix:
     comment: Added at the end of the title and highlighted in a different color
   pagination.size:
