@@ -100,9 +100,33 @@ _snippets:
     inline: false
     preview:
       text: Iframe
+      subtext:
+        - key: src
     definitions:
       component_name: Iframe
       named_args:
         - source_key: src
           editor_key: src
           type: string
+    _inputs:
+      src:
+        type: url
+  button:
+    template: mdx_component
+    inline: false
+    preview:
+      text: Button
+      subtext:
+        - key: button_text
+    definitions:
+      component_name: ButtonSnippet
+      named_args:
+        - source_key: button_text
+          editor_key: button_text
+          type: string
+        - source_key: button_link
+          editor_key: button_link
+          type: string
+    _inputs:
+      button_link:
+        type: url
