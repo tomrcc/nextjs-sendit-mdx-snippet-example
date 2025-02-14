@@ -103,7 +103,7 @@ _snippets:
       subtext:
         - key: src
     definitions:
-      component_name: Iframe
+      component_name: IframeComponent
       named_args:
         - source_key: src
           editor_key: src
