@@ -28,6 +28,7 @@ collections_config:
 _editables:
   content:
     embed: true
+    snippet: true
 _inputs:
   date:
     instance_value: NOW
