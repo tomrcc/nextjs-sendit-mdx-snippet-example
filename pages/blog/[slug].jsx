@@ -12,37 +12,11 @@ import ButtonSnippet from '../../components/snippets/button';
 import allComponents from '../../components/snippets/**/*.*';
 
 const components = { ButtonSnippet };
-console.log({ components });
-
-console.log({ allComponents });
-
-let componentsAutoImporting = {}
-const allComponentKeys = Object.keys(allComponents);
-allComponentKeys.map((componentKey) => {
-	console.log("HERE")
-	console.log({ componentKey });
-	const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey];
-	const functionName = componentFunction.name;
-	console.log({ functionName });
-
-	componentsAutoImporting[functionName] = componentFunction;
-})
-
-console.log({componentsAutoImporting})
+console.log({allComponents})
 
 export default function Post({ page, posts, mdxSource, dateFormatted }) {
 	const wordCount = page.content.split(" ").length;
 	const readingTime = Math.floor(wordCount / 183);
-
-	console.log({allComponentKeys});
-	allComponentKeys.map((componentKey) => {
-	const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey];
-	const functionName = componentFunction.name;
-		console.log({functionName});
-
-	componentsAutoImporting[functionName] = componentFunction;
-	})
-	console.log({componentsAutoImporting});
 
 	return (
 		<DefaultLayout page={page}>
