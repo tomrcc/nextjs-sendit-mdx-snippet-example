@@ -15,14 +15,14 @@ console.log({components})
 
 console.log({allComponents})
 
-let componentsAutoImporting = {}
-const allComponentKeys = Object.keys(allComponents);
-allComponentKeys.map((componentKey) => {
-	const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey]
-	const functionName = componentFunction.name;
+// let componentsAutoImporting = {}
+// const allComponentKeys = Object.keys(allComponents);
+// allComponentKeys.map((componentKey) => {
+// 	const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey]
+// 	const functionName = componentFunction.name;
 
-	componentsAutoImporting[functionName] = componentFunction
-})
+// 	componentsAutoImporting[functionName] = componentFunction
+// })
 
 console.log({componentsAutoImporting})
 
