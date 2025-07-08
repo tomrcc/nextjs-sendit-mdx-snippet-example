@@ -25,6 +25,7 @@ export default function Post({ page, posts, mdxSource, dateFormatted }) {
 	console.log("allComponentsClient:", allComponents)
 	for (const component of Object.keys(allComponents)) {
 		console.log("componentClient:", allComponents[component])
+		console.log("componentClientGet:", allComponents[component].get())
 		console.log("componentClientDefault:", allComponents[component].default)
 	}
 
