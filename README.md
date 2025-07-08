@@ -6,8 +6,9 @@ Blog posts on this demo use `.mdx` pages for the blog posts and are set up to al
 
 Most of the logic for this lives in `pages/blog/[slug].jsx`, and an example Snippet lives on the page `content/posts/email-delivery-tips.mdx`.
 
-[next-mdx-remote](https://www.npmjs.com/package/next-mdx-remote)
-[next/mdx frontmatter](https://nextjs.org/docs/app/guides/mdx#frontmatter)
+- [next-mdx-remote](https://www.npmjs.com/package/next-mdx-remote)
+  
+- [next/mdx frontmatter](https://nextjs.org/docs/app/guides/mdx#frontmatter)
 
 ## Develop
 
