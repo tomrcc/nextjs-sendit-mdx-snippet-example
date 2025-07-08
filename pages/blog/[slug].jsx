@@ -8,9 +8,9 @@ const { DateTime } = require("luxon");
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
 import ButtonSnippet from '../../components/snippets/button'
+import * as fs from 'node:fs';
 
 const components = { ButtonSnippet }
-// import * as fs from 'node:fs';
 // import allComponents from '../../components/snippets/**/*.*';
 
 // console.log({allComponents})
