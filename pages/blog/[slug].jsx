@@ -12,7 +12,6 @@ import ButtonSnippet from '../../components/snippets/button'
 import allComponents from '../../components/snippets/**/*.*';
 
 const components = { ButtonSnippet }
-const dateFormatted = DateTime.fromISO(page.data.date, 'string').toLocaleString(DateTime.DATE_FULL)
 console.log({components})
 
 console.log({allComponents})
@@ -30,7 +29,8 @@ console.log({allComponents})
 
 export default function Post({ page, posts, mdxSource }) {
 	const wordCount = page.content.split(" ").length;
-	const readingTime  = Math.floor(wordCount / 183)
+	const readingTime = Math.floor(wordCount / 183)
+	const dateFormatted = DateTime.fromISO(page.data.date, 'string').toLocaleString(DateTime.DATE_FULL)
 
 	return (
 		<DefaultLayout page={page}>
