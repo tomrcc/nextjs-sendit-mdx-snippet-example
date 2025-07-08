@@ -10,6 +10,11 @@ Most of the logic for this lives in `pages/blog/[slug].jsx`, and an example Snip
   
 - [next/mdx frontmatter](https://nextjs.org/docs/app/guides/mdx#frontmatter)
 
+## Adding new snippets
+
+1. Add the snippet to the `cloudcannon.config.yaml` following the format of the placeholder ones
+2. Add the snippet import to `pages/blog/[slug].jsx`, and add it to the `components` object, which passes it to the `mdx` pages in the blog section to be used.
+
 ## Develop
 
 Sendit is built with [Next.js](https://nextjs.org/) (version `13.0.4`).

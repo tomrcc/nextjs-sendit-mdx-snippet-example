@@ -9,14 +9,19 @@ import * as fs from 'node:fs';
 import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote } from 'next-mdx-remote';
 import ButtonSnippet from '../../components/snippets/button';
-import allComponents from '../../components/snippets/**/*.*';
+import IframeSnippet from '../../components/snippets/iframe';
 
-const components = { ButtonSnippet };
-console.log({allComponents})
+// TODO: Get glob imports working so we don't have to manually add components
+import allComponents from '../../components/snippets/**/*.*';
+console.log("allComponentsServer:", allComponents)
+
+// Add components here to allow in visual editor after importing them manually
+const components = { ButtonSnippet, IframeSnippet };
 
 export default function Post({ page, posts, mdxSource, dateFormatted }) {
 	const wordCount = page.content.split(" ").length;
 	const readingTime = Math.floor(wordCount / 183);
+	console.log("allComponentsClient:", allComponents)
 
 	return (
 		<DefaultLayout page={page}>
