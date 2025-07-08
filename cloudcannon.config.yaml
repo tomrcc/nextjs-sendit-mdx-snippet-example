@@ -28,6 +28,7 @@ collections_config:
 _editables:
   content:
     embed: true
+    snippet: true
 _inputs:
   date:
     instance_value: NOW
@@ -100,9 +101,33 @@ _snippets:
     inline: false
     preview:
       text: Iframe
+      subtext:
+        - key: src
     definitions:
-      component_name: Iframe
+      component_name: IframeComponent
       named_args:
         - source_key: src
           editor_key: src
           type: string
+    _inputs:
+      src:
+        type: url
+  button:
+    template: mdx_component
+    inline: false
+    preview:
+      text: Button
+      subtext:
+        - key: button_text
+    definitions:
+      component_name: ButtonSnippet
+      named_args:
+        - source_key: button_text
+          editor_key: button_text
+          type: string
+        - source_key: button_link
+          editor_key: button_link
+          type: string
+    _inputs:
+      button_link:
+        type: url
