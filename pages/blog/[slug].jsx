@@ -4,18 +4,16 @@ import PostSummary from '../../components/posts/summary';
 import data from '../../lib/data';
 import { ArticleJsonLd } from 'next-seo';
 const filer = new Filer({ path: 'content' });
-const { DateTime } = require("luxon");
 import * as fs from 'node:fs';
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
 import ButtonSnippet from '../../components/snippets/button'
 import allComponents from '../../components/snippets/**/*.*';
-import { Suspense } from 'react';
 
 const components = { ButtonSnippet }
 console.log({components})
 
-// console.log({allComponents})
+console.log({allComponents})
 
 let componentsAutoImporting = {}
 const allComponentKeys = Object.keys(allComponents);
@@ -39,8 +37,6 @@ export default function Post({ page, posts, mdxSource }) {
 				url={`${data.site.baseurl}${page.data.seo?.canonical_url || page.slug}`}
 				title={page.data.title}
 				images={[page.data.seo?.featured_image || page.data.featuredImg.image || null]}
-				datePublished={page.data.date}
-				dateModified={page.data.date}
 				authorName={page.data.author}
 				description={page.data.seo?.page_description}
 			/>
@@ -54,7 +50,6 @@ export default function Post({ page, posts, mdxSource }) {
 								<div className="inner-blog-details-meta">
 									<ul className="list-unstyled">
 										<li className="list-inline-item">
-										<p>{DateTime.fromISO(page.data.date, 'string').toLocaleString(DateTime.DATE_FULL)}</p>
 										</li>
 										<li className="list-inline-item">
 											<p>{ page.data.author}</p>
@@ -67,10 +62,8 @@ export default function Post({ page, posts, mdxSource }) {
 										</li>
 									</ul>
 								</div>
-								</div>
-								<Suspense fallback={<Loading />}>
-									<MDXRemote {...mdxSource} components={components} />
-								</Suspense>
+							</div>
+							<MDXRemote {...mdxSource} components={components} />
 							<div className="rounded-box mb-xxl-11 mb-8">
 								<img
 									src={page.data.featuredImg.image}
@@ -117,7 +110,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const page = await filer.getItem(`${params.slug}.mdx`, { folder: 'posts' });
-	const paginatedPosts = await filer.getPaginatedItems('posts', { sortKey: 'date', pagination: {size: 3, page: 1} });
+	const paginatedPosts = await filer.getPaginatedItems('posts', { sortKey: 'title', pagination: {size: 3, page: 1} });
 	const mdxText = fs.readFileSync(`content/posts/${params.slug}.mdx`);
 	const mdxSource = await serialize(mdxText, { parseFrontmatter: true })
 
@@ -128,9 +121,4 @@ export async function getStaticProps({ params }) {
 			mdxSource,
 		}
 	};
-}
-
-
-function Loading() {
-	return <h2>🌀 Loading...</h2>;
 }
