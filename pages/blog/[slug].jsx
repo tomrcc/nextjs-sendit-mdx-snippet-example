@@ -7,21 +7,24 @@ const filer = new Filer({ path: 'content' });
 const { DateTime } = require("luxon");
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
-import * as fs from 'node:fs';
-import allComponents from '../../components/snippets/**/*.*';
+import ButtonSnippet from '../../components/snippets/button'
 
-console.log({allComponents})
+const components = { ButtonSnippet }
+// import * as fs from 'node:fs';
+// import allComponents from '../../components/snippets/**/*.*';
 
-let components = {}
-const allComponentKeys = Object.keys(allComponents);
-allComponentKeys.map((componentKey) => {
-	const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey]
-	const functionName = componentFunction.name;
+// console.log({allComponents})
 
-	components[functionName] = componentFunction
-})
+// let components = {}
+// const allComponentKeys = Object.keys(allComponents);
+// allComponentKeys.map((componentKey) => {
+// 	const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey]
+// 	const functionName = componentFunction.name;
 
-console.log({components})
+// 	components[functionName] = componentFunction
+// })
+
+// console.log({components})
 
 export default function Post({ page, posts, mdxSource }) {
 	const wordCount = page.content.split(" ").length;
