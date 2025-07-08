@@ -13,27 +13,25 @@ import IframeSnippet from '../../components/snippets/iframe';
 
 // TODO: Get glob imports working so we don't have to manually add components
 import allComponents from '../../components/snippets/**/*.*';
-console.log("allComponentsServer:", allComponents)
+// console.log("allComponentsServer:", allComponents);
+
+const componentsTestImport = {};
+for (const component of Object.keys(allComponents)) {
+	const componentFunction = allComponents[component].default;
+	const functionName = componentFunction.name;
+	console.log({ componentFunction });
+	
+	componentsTestImport[functionName] = componentFunction;
+}
+console.log({componentsTestImport})
 
 // Add components here to allow in visual editor after importing them manually
 const components = { ButtonSnippet, IframeSnippet };
+console.log({components})
 
 export default function Post({ page, posts, mdxSource, dateFormatted }) {
 	const wordCount = page.content.split(" ").length;
 	const readingTime = Math.floor(wordCount / 183);
-
-	console.log("allComponentsClient:", allComponents)
-	for (const component of Object.keys(allComponents)) {
-		console.log("componentClient:", allComponents[component])
-		console.log("componentClientGet:", allComponents[component].get())
-		console.log("componentClientDefault:", allComponents[component].default)
-	}
-
-	console.log("normalImportComponents:", components)
-	for (const component of Object.keys(components)) {
-		console.log("normalComponentClient:", components[component])
-		console.log("normalComponentClientDefault:", components[component].default)
-	}
 
 	return (
 		<DefaultLayout page={page}>
