@@ -4,11 +4,13 @@ import PostSummary from '../../components/posts/summary';
 import data from '../../lib/data';
 import { ArticleJsonLd } from 'next-seo';
 const filer = new Filer({ path: 'content' });
+const { DateTime } = require("luxon");
 import * as fs from 'node:fs';
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
 import ButtonSnippet from '../../components/snippets/button'
 import allComponents from '../../components/snippets/**/*.*';
+
 
 const components = { ButtonSnippet }
 console.log({components})
@@ -24,7 +26,7 @@ console.log({allComponents})
 // 	componentsAutoImporting[functionName] = componentFunction
 // })
 
-console.log({componentsAutoImporting})
+// console.log({componentsAutoImporting})
 
 export default function Post({ page, posts, mdxSource }) {
 	const wordCount = page.content.split(" ").length;
@@ -37,6 +39,8 @@ export default function Post({ page, posts, mdxSource }) {
 				url={`${data.site.baseurl}${page.data.seo?.canonical_url || page.slug}`}
 				title={page.data.title}
 				images={[page.data.seo?.featured_image || page.data.featuredImg.image || null]}
+				datePublished={page.data.date}
+				dateModified={page.data.date}
 				authorName={page.data.author}
 				description={page.data.seo?.page_description}
 			/>
@@ -50,6 +54,7 @@ export default function Post({ page, posts, mdxSource }) {
 								<div className="inner-blog-details-meta">
 									<ul className="list-unstyled">
 										<li className="list-inline-item">
+										<p>{DateTime.fromISO(page.data.date, 'string').toLocaleString(DateTime.DATE_FULL)}</p>
 										</li>
 										<li className="list-inline-item">
 											<p>{ page.data.author}</p>
@@ -110,7 +115,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const page = await filer.getItem(`${params.slug}.mdx`, { folder: 'posts' });
-	const paginatedPosts = await filer.getPaginatedItems('posts', { sortKey: 'title', pagination: {size: 3, page: 1} });
+	const paginatedPosts = await filer.getPaginatedItems('posts', { sortKey: 'date', pagination: {size: 3, page: 1} });
 	const mdxText = fs.readFileSync(`content/posts/${params.slug}.mdx`);
 	const mdxSource = await serialize(mdxText, { parseFrontmatter: true })
 
