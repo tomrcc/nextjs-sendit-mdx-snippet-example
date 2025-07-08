@@ -16,16 +16,16 @@ console.log({components})
 
 console.log({allComponents})
 
-// let componentsAutoImporting = {}
-// const allComponentKeys = Object.keys(allComponents);
-// allComponentKeys.map((componentKey) => {
-// 	const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey]
-// 	const functionName = componentFunction.name;
+let componentsAutoImporting = {}
+const allComponentKeys = Object.keys(allComponents);
+allComponentKeys.map((componentKey) => {
+	const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey]
+	const functionName = componentFunction.name;
 
-// 	componentsAutoImporting[functionName] = componentFunction
-// })
+	componentsAutoImporting[functionName] = componentFunction
+})
 
-// console.log({componentsAutoImporting})
+console.log({componentsAutoImporting})
 
 export default function Post({ page, posts, mdxSource, dateFormatted }) {
 	const wordCount = page.content.split(" ").length;
@@ -67,7 +67,7 @@ export default function Post({ page, posts, mdxSource, dateFormatted }) {
 									</ul>
 								</div>
 							</div>
-							<MDXRemote {...mdxSource} components={components} />
+							<MDXRemote {...mdxSource} components={componentsAutoImporting} />
 							<div className="rounded-box mb-xxl-11 mb-8">
 								<img
 									src={page.data.featuredImg.image}
