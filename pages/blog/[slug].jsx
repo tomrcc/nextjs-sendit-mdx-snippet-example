@@ -15,19 +15,19 @@ import IframeSnippet from '../../components/snippets/iframe';
 import allComponents from '../../components/snippets/**/*.*';
 // console.log("allComponentsServer:", allComponents);
 
-const componentsTestImport = {};
-for (const component of Object.keys(allComponents)) {
-	const componentFunction = allComponents[component].default;
-	const functionName = componentFunction.name;
-	console.log({ componentFunction });
+// const componentsTestImport = {};
+// for (const component of Object.keys(allComponents)) {
+// 	const componentFunction = allComponents[component].default;
+// 	const functionName = componentFunction.name;
+// 	console.log({ componentFunction });
 	
-	componentsTestImport[functionName] = componentFunction;
-}
-console.log({componentsTestImport})
+// 	componentsTestImport[functionName] = componentFunction;
+// }
+// console.log({componentsTestImport})
 
 // Add components here to allow in visual editor after importing them manually
 const components = { ButtonSnippet, IframeSnippet };
-console.log({components})
+// console.log({components})
 
 export default function Post({ page, posts, mdxSource, dateFormatted }) {
 	const wordCount = page.content.split(" ").length;
