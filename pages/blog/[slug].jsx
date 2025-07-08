@@ -4,7 +4,6 @@ import PostSummary from '../../components/posts/summary';
 import data from '../../lib/data';
 import { ArticleJsonLd } from 'next-seo';
 const filer = new Filer({ path: 'content' });
-const { DateTime } = require("luxon");
 import * as fs from 'node:fs';
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
@@ -54,7 +53,6 @@ export default function Post({ page, posts, mdxSource }) {
 								<div className="inner-blog-details-meta">
 									<ul className="list-unstyled">
 										<li className="list-inline-item">
-										<p>{DateTime.fromISO(page.data.date, 'string').toLocaleString(DateTime.DATE_FULL)}</p>
 										</li>
 										<li className="list-inline-item">
 											<p>{ page.data.author}</p>
