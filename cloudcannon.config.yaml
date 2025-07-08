@@ -25,10 +25,7 @@ collections_config:
     schemas:
       default:
         path: schemas/post.mdx
-_editables:
-  content:
-    embed: true
-    snippet: true
+
 _inputs:
   date:
     instance_value: NOW
@@ -84,6 +81,20 @@ _inputs:
     comment: >-
       When selected this removes the page from your sitemap and adds the noindex
       robots meta tag
+
+_editables:
+  content:
+    embed: true
+    snippet: true
+    blockquote: true
+    bold: true
+    format: p h1 h2 h3 h4 h5 h6 pre address div
+    italic: true
+    link: true
+    strike: true
+    subscript: true
+    superscript: true
+    underline: true
 
 _structures:
   features:
