@@ -5,26 +5,27 @@ import data from '../../lib/data';
 import { ArticleJsonLd } from 'next-seo';
 const filer = new Filer({ path: 'content' });
 const { DateTime } = require("luxon");
+import * as fs from 'node:fs';
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
 import ButtonSnippet from '../../components/snippets/button'
-import * as fs from 'node:fs';
+import allComponents from '../../components/snippets/**/*.*';
 
 const components = { ButtonSnippet }
-// import allComponents from '../../components/snippets/**/*.*';
+console.log({components})
 
 // console.log({allComponents})
 
-// let components = {}
-// const allComponentKeys = Object.keys(allComponents);
-// allComponentKeys.map((componentKey) => {
-// 	const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey]
-// 	const functionName = componentFunction.name;
+let componentsAutoImporting = {}
+const allComponentKeys = Object.keys(allComponents);
+allComponentKeys.map((componentKey) => {
+	const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey]
+	const functionName = componentFunction.name;
 
-// 	components[functionName] = componentFunction
-// })
+	componentsAutoImporting[functionName] = componentFunction
+})
 
-// console.log({components})
+console.log({componentsAutoImporting})
 
 export default function Post({ page, posts, mdxSource }) {
 	const wordCount = page.content.split(" ").length;
