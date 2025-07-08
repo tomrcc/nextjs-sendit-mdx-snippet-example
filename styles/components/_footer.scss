@@ -55,7 +55,7 @@
           justify-content: center;
         }
         @include media-breakpoint-down-sm {
-          justify-content: start;
+          justify-content: flex-start;
         }
 
         li {

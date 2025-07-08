@@ -74,8 +74,8 @@
   align-items: center;
   @include media-breakpoint-down-lg {
     margin-top: $base-margin * 4.5 !important;
-    justify-content: start;
-    align-items: start;
+    justify-content: flex-start;
+    align-items: flex-start;
     // height: calc(100vh - 76px);
   }
   .nav-link {
@@ -192,7 +192,7 @@
       font-size: $base-font-size * 1.6;
       position: relative;
       display: flex;
-      justify-content: start;
+      justify-content: flex-start;
       color: $color-text;
       font-weight: 600;
       font-family: $font-primary;
