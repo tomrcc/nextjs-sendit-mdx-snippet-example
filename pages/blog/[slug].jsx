@@ -21,10 +21,17 @@ const components = { ButtonSnippet, IframeSnippet };
 export default function Post({ page, posts, mdxSource, dateFormatted }) {
 	const wordCount = page.content.split(" ").length;
 	const readingTime = Math.floor(wordCount / 183);
+
 	console.log("allComponentsClient:", allComponents)
 	for (const component of Object.keys(allComponents)) {
 		console.log("componentClient:", allComponents[component])
 		console.log("componentClientDefault:", allComponents[component].default)
+	}
+
+	console.log("normalImportComponents:", components)
+	for (const component of Object.keys(components)) {
+		console.log("normalComponentClient:", components[component])
+		console.log("normalComponentClientDefault:", components[component].default)
 	}
 
 	return (
