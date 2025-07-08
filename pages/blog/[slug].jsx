@@ -13,23 +13,23 @@ import allComponents from '../../components/snippets/**/*.*';
 
 const components = { ButtonSnippet }
 console.log({components})
+
 console.log({allComponents})
 
+let componentsAutoImporting = {}
+const allComponentKeys = Object.keys(allComponents);
+allComponentKeys.map((componentKey) => {
+	const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey]
+	const functionName = componentFunction.name;
+
+	componentsAutoImporting[functionName] = componentFunction
+})
+
+console.log({componentsAutoImporting})
 
 export default function Post({ page, posts, mdxSource, dateFormatted }) {
 	const wordCount = page.content.split(" ").length;
 	const readingTime = Math.floor(wordCount / 183)
-
-	let componentsAutoImporting = {}
-	const allComponentKeys = Object.keys(allComponents);
-	allComponentKeys.map((componentKey) => {
-		const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey]
-		const functionName = componentFunction.name;
-	
-		componentsAutoImporting[functionName] = componentFunction
-	})
-	
-	console.log({componentsAutoImporting})
 
 	return (
 		<DefaultLayout page={page}>
@@ -67,7 +67,7 @@ export default function Post({ page, posts, mdxSource, dateFormatted }) {
 									</ul>
 								</div>
 							</div>
-							<MDXRemote {...mdxSource} components={componentsAutoImporting} />
+							<MDXRemote {...mdxSource} components={components} />
 							<div className="rounded-box mb-xxl-11 mb-8">
 								<img
 									src={page.data.featuredImg.image}
@@ -119,13 +119,12 @@ export async function getStaticProps({ params }) {
 	const mdxSource = await serialize(mdxText, { parseFrontmatter: true });
 	const dateFormatted = DateTime.fromISO(mdxSource.frontmatter.date, 'string').toLocaleString(DateTime.DATE_FULL);
 
-
 	return {
 		props: {
 			page: {data: mdxSource.frontmatter, content: page.content},
 			posts: JSON.parse(JSON.stringify(paginatedPosts.data)),
 			mdxSource,
-			dateFormatted,
+			dateFormatted
 		}
 	};
 }
