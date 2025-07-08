@@ -6,30 +6,41 @@ import { ArticleJsonLd } from 'next-seo';
 const filer = new Filer({ path: 'content' });
 import { DateTime } from "luxon";
 import * as fs from 'node:fs';
-import { serialize } from 'next-mdx-remote/serialize'
-import { MDXRemote } from 'next-mdx-remote'
-import ButtonSnippet from '../../components/snippets/button'
+import { serialize } from 'next-mdx-remote/serialize';
+import { MDXRemote } from 'next-mdx-remote';
+import ButtonSnippet from '../../components/snippets/button';
 import allComponents from '../../components/snippets/**/*.*';
 
-const components = { ButtonSnippet }
-console.log({components})
+const components = { ButtonSnippet };
+console.log({ components });
 
-console.log({allComponents})
+console.log({ allComponents });
 
 let componentsAutoImporting = {}
 const allComponentKeys = Object.keys(allComponents);
 allComponentKeys.map((componentKey) => {
-	const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey]
+	const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey];
 	const functionName = componentFunction.name;
+	console.log({ functionName });
 
-	componentsAutoImporting[functionName] = componentFunction
+	componentsAutoImporting[functionName] = componentFunction;
 })
 
 console.log({componentsAutoImporting})
 
 export default function Post({ page, posts, mdxSource, dateFormatted }) {
 	const wordCount = page.content.split(" ").length;
-	const readingTime = Math.floor(wordCount / 183)
+	const readingTime = Math.floor(wordCount / 183);
+
+	console.log({allComponentKeys});
+	allComponentKeys.map((componentKey) => {
+	const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey];
+	const functionName = componentFunction.name;
+		console.log({functionName});
+
+	componentsAutoImporting[functionName] = componentFunction;
+	})
+	console.log({componentsAutoImporting});
 
 	return (
 		<DefaultLayout page={page}>
