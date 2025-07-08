@@ -19,6 +19,8 @@ console.log({ allComponents });
 let componentsAutoImporting = {}
 const allComponentKeys = Object.keys(allComponents);
 allComponentKeys.map((componentKey) => {
+	console.log("HERE")
+	console.log({ componentKey });
 	const componentFunction = allComponents[componentKey].default ?? allComponents[componentKey];
 	const functionName = componentFunction.name;
 	console.log({ functionName });
