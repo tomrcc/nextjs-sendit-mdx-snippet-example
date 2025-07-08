@@ -8,10 +8,9 @@ const { DateTime } = require("luxon");
 import * as fs from 'node:fs';
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
-// import ButtonSnippet from '../../components/snippets/button'
+import ButtonSnippet from '../../components/snippets/button'
 import allComponents from '../../components/snippets/**/*.*';
-import dynamic from 'next/dynamic';
-const ButtonSnippet = dynamic(() => import("../../components/snippets/button"));
+import { Suspense } from 'react';
 
 const components = { ButtonSnippet }
 console.log({components})
@@ -68,8 +67,10 @@ export default function Post({ page, posts, mdxSource }) {
 										</li>
 									</ul>
 								</div>
-							</div>
-							<MDXRemote {...mdxSource} components={components} />
+								</div>
+								<Suspense fallback={<Loading />}>
+									<MDXRemote {...mdxSource} components={components} />
+								</Suspense>
 							<div className="rounded-box mb-xxl-11 mb-8">
 								<img
 									src={page.data.featuredImg.image}
@@ -127,4 +128,9 @@ export async function getStaticProps({ params }) {
 			mdxSource,
 		}
 	};
+}
+
+
+function Loading() {
+	return <h2>🌀 Loading...</h2>;
 }
