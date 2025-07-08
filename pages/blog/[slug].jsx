@@ -22,6 +22,10 @@ export default function Post({ page, posts, mdxSource, dateFormatted }) {
 	const wordCount = page.content.split(" ").length;
 	const readingTime = Math.floor(wordCount / 183);
 	console.log("allComponentsClient:", allComponents)
+	for (const component of allComponents) {
+		console.log("componentClient:", component)
+		console.log("componentClientDefault:", component.default)
+	}
 
 	return (
 		<DefaultLayout page={page}>
