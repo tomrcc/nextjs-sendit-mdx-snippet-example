@@ -15,23 +15,15 @@ import IframeSnippet from '../../components/snippets/iframe';
 import allComponents from '../../components/snippets/**/*.*';
 // console.log("allComponentsServer:", allComponents);
 
-const componentsTestImport = {};
-for (const component of Object.keys(allComponents)) {
-	const componentFunction = allComponents[component].default;
-	const functionName = componentFunction.name;
-	console.log({ componentFunction });
-	
-	componentsTestImport[functionName] = componentFunction;
-}
-console.log({componentsTestImport})
-
 // Add components here to allow in visual editor after importing them manually
 const components = { ButtonSnippet, IframeSnippet };
 console.log({components})
 
-export default function Post({ page, posts, mdxSource, dateFormatted }) {
+export default function Post({ page, posts, mdxSource, dateFormatted, mdxSnippets }) {
 	const wordCount = page.content.split(" ").length;
 	const readingTime = Math.floor(wordCount / 183);
+
+	console.log("Clientside:", mdxSnippets)
 
 	return (
 		<DefaultLayout page={page}>
@@ -116,17 +108,31 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	const page = await filer.getItem(`${params.slug}.mdx`, { folder: 'posts' });
-	const paginatedPosts = await filer.getPaginatedItems('posts', { sortKey: 'date', pagination: {size: 3, page: 1} });
+	const paginatedPosts = await filer.getPaginatedItems('posts', { sortKey: 'date', pagination: { size: 3, page: 1 } });
+	const componentsTestImport = {};
+	for (const component of Object.keys(allComponents)) {
+		const componentFunction = allComponents[component].default;
+		const functionName = componentFunction.name;
+		console.log({ componentFunction });
+		
+		componentsTestImport[functionName] = componentFunction;
+	}
+	console.log({ componentsTestImport })
 	const mdxText = fs.readFileSync(`content/posts/${params.slug}.mdx`);
 	const mdxSource = await serialize(mdxText, { parseFrontmatter: true });
+	const mdxSnippets = await serialize(componentsTestImport);
 	const dateFormatted = DateTime.fromISO(mdxSource.frontmatter.date, 'string').toLocaleString(DateTime.DATE_FULL);
+	
+
+
 
 	return {
 		props: {
 			page: {data: mdxSource.frontmatter, content: page.content},
 			posts: JSON.parse(JSON.stringify(paginatedPosts.data)),
 			mdxSource,
-			dateFormatted
+			dateFormatted,
+			mdxSnippets
 		}
 	};
 }
