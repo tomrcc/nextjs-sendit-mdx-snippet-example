@@ -19,6 +19,7 @@
     "@next/mdx": "^15.1.7",
     "@types/mdx": "^2.0.13",
     "eslint-config-next": "^13.0.4",
+    "fast-glob": "^3.3.3",
     "gray-matter": "^4.0.3",
     "luxon": "^3.1.0",
     "markdown-it": "^12.2.0",

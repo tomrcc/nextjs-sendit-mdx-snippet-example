@@ -10,29 +10,30 @@ import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote } from 'next-mdx-remote';
 import ButtonSnippet from '../../components/snippets/button';
 import IframeSnippet from '../../components/snippets/iframe';
+import glob from "fast-glob";
+import path from "path";
+import dynamic from "next/dynamic";
 
 // TODO: Get glob imports working so we don't have to manually add components
-import allComponents from '../../components/snippets/**/*.*';
-// console.log("allComponentsServer:", allComponents);
-
-// const componentsTestImport = {};
-// for (const component of Object.keys(allComponents)) {
-// 	const componentFunction = allComponents[component].default;
-// 	const functionName = componentFunction.name;
-// 	console.log({ componentFunction });
-	
-// 	componentsTestImport[functionName] = componentFunction;
-// }
-// console.log({componentsTestImport})
+// const allComponents = Object.values(
+// 	import.meta.glob("./components/snippets*.{png,jpg,jpeg,svg,avif}", {
+// 		eager: true,
+// 		as: "",
+// 	}),
+// );
 
 // Add components here to allow in visual editor after importing them manually
 const components = { ButtonSnippet, IframeSnippet };
-// console.log({components})
 
-export default function Post({ page, posts, mdxSource, dateFormatted }) {
+export default function Post({ page, posts, mdxSource, dateFormatted, componentPaths }) {
 	const wordCount = page.content.split(" ").length;
 	const readingTime = Math.floor(wordCount / 183);
-
+  const DynamicComponents = componentPaths.map((componentPath) =>
+    dynamic(() => import(componentPath)) // The path needs to be resolvable by Webpack
+	);
+	
+	console.log({ components })
+	console.log({ DynamicComponents })
 	return (
 		<DefaultLayout page={page}>
 			<ArticleJsonLd
@@ -120,13 +121,28 @@ export async function getStaticProps({ params }) {
 	const mdxText = fs.readFileSync(`content/posts/${params.slug}.mdx`);
 	const mdxSource = await serialize(mdxText, { parseFrontmatter: true });
 	const dateFormatted = DateTime.fromISO(mdxSource.frontmatter.date, 'string').toLocaleString(DateTime.DATE_FULL);
+	const componentPaths = await getComponentPaths(
+    path.join(process.cwd(), "components", "snippets") // Adjust path as needed
+  );
 
 	return {
 		props: {
 			page: {data: mdxSource.frontmatter, content: page.content},
 			posts: JSON.parse(JSON.stringify(paginatedPosts.data)),
 			mdxSource,
-			dateFormatted
+			dateFormatted,
+			componentPaths
 		}
 	};
+}
+
+// Example: src/utils/componentLoader.js
+
+
+export async function getComponentPaths(directory) {
+  const componentFiles = await glob("**/*.jsx", {
+    cwd: directory, // Specify the base directory to search within
+    ignore: ["node_modules/**"], // Exclude node_modules
+  });
+  return componentFiles.map((file) => path.join(directory, file));
 }
